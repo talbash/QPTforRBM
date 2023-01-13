@@ -87,5 +87,4 @@ This file includes a summary of the parameters used in the simulation.
 
 
 ## MINRES-QLP
-The code uses MINRES-QLP, an implementation of a conjugate-gradient type method for solving sparse symmetric/Hermitian linear equations.  MINRES-QLP algorithm C++ implementation is based on the MATLAB code available [here](https://web.stanford.edu/group/SOL/software/minresqlp/).
-
+The code uses MINRES-QLP, an implementation of a conjugate-gradient type method for solving sparse symmetric/Hermitian linear equations.  MINRES-QLP algorithm C++ implementation is based on the MATLAB code available [here](https://web.stanford.edu/group/SOL/software/minresqlp/).  To help our implementaiton, we make use of the SimpleVector implementation by Umberto Villa, Michael Saunders, Santiago Akle.
