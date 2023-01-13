@@ -1,5 +1,5 @@
 # QPTforRBM
-Quantum-Inspired Tempering for Ground State Approximation using RBM's. Repository for code to reproduce the main results of arXiv:2210.11405 
+Quantum-Inspired Tempering for Ground State Approximation using RBM's. Repository for code to reproduce the main results of arXiv:2210.11405.  It implements quantum parallel tempering according to the training Hamiltonian in Eqts.(14-19) using the swap probability defined in Eqt.(11).
 
 ## Compilation instructions
 To compile, you will need an MPI enabled C++ compiler with c++14.  For example, gcc 11.3 and openmpi 4.1.4 should allow compilation.
@@ -87,11 +87,5 @@ This file includes a summary of the parameters used in the simulation.
 
 
 ## MINRES-QLP
-Implementation of a conjugate-gradient type method for solving sparse symmetric/Hermitian linear equations.  The method is based on Lanczos tridiagonalization. Returns minimum-length solution.
+The code uses MINRES-QLP, an implementation of a conjugate-gradient type method for solving sparse symmetric/Hermitian linear equations.  MINRES-QLP algorithm C++ implementation is based on the MATLAB code available [here](https://web.stanford.edu/group/SOL/software/minresqlp/).
 
-Cite:
-- MINRES-QLP: A Krylov subspace method for indefinite or singular symmetric systems, SIAM J. Sci. Comput. 33:4, 1810-1836, published electronically Aug 4, 2011.  
-- S.-C. T. Choi and M. A. Saunders. Algorithm 937: MINRES-QLP for symmetric and Hermitian linear equations and least-squares problems, ACM Trans. Math. Softw. 40:2, Article 16 (Feb 2014), 12 pp.
-- S.-C. Choi (2006). Iterative Methods for Singular Linear Equations and Least-Squares Problems, PhD thesis, Stanford University.
-
-MINRES-QLP algorithm C++ implementation is based on the MATLAB code available [here](https://web.stanford.edu/group/SOL/software/minresqlp/).
