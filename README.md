@@ -70,44 +70,21 @@ corresponds to the Hamiltonian H = - X_0 - Z_0 Z_1
 The input files for the H4 rectangle used in arXiv:2210.11405 can be found in the InstanceFiles folder.  They are H4.80.txt, H4.85.txt, and H4.90.txt, corresponding to the three angles of 80, 85, and 90 degrees studied. 
 
 ## Output files
-In an effort to be as complete as possible, the code outputs a lot of information that is organized in different files.  The filenames will have input16 as their prefix, in addition to some of the input parameters, such as the number of visible and hidden nodes, number of samples, number of sweeps between samples, and the number of ANN updates performed.  The following files will be output when the training algorithm is used ($input16 = 0):
+The filenames will have the problem name as their prefix.  For example for the symmetric RBM, this will be restricted to the Precipice problem.  For the standard RBM, it will inherit the name of the input file. The following files will be output when the training algorithm is used:
 
-- ($input17)_n=($input3)_m=($input4)_nS=($input5)_nSweepsPerSwap=($input6)_ANNParameterFile_r($input12).dat
+- ($ProblemName)_StandardRBM_n=($input2)_m=($input3)_nUpdates=($input6)_PTEnergyFile_r($input7).dat
 
-    Each line gives the current state of the ANN for the zero temperature replica.  The first n data points is the spin configuration of the visible layer, followed by the 2 \times n elements of the ANN parameter a (remember that a is complex so a_1 has two parts), follewed by the 2 \times m elements of the ANN parameter b, followed by the 2 \times n \times m elements of W (indexed as W[i + j*m] with i = 0,...,m-1, j=0,...,n-1).
+This file will have (1 + $input1) columns.  The first column carries the update step, while the remaining columns give the expectation value of the target Hamiltonian for each replica.
 
-- ($input17)_n=($input3)_m=($input4)_nS=($input5)_nSweepsPerSwap=($input6)_DataFile_Replica($k)_r($input12).dat
+- ($ProblemName)_StandardRBM_n=($input2)_m=($input3)_nUpdates=($input6)_PTReplicaFile_r($input7).dat
 
-    Identical to the previous, except it gives the ANN parametesr for the k-th temperature replica.  These files will only appear if $input1 is greater than 1.
+This file will have (1 + $input1) columns.  The first column carries the update step, while the remaining columns give the original replica index of the configuration currently at that replica location.
 
-- ($input17)_n=($input3)_m=($input4)_nS=($input5)_nSweepsPerSwap=($input6)_EnergyForceFile_r($input12).dat
+- ($ProblemName)_StandardRBM_n=($input2)_m=($input3)_nUpdates=($input6)_SimulationFile_r($input7).dat
 
-    Five column file listing: the local energy, the wavefunction change, the expected energy change, the norm of the force vector, and the implemented learning rate.
+This file includes a summary of the parameters used in the simulation.
 
-- ($input17)_n=($input3)_m=($input4)_nS=($input5)_nSweepsPerSwap=($input6)_SimulationFile_r($input12).dat
 
-    File that lists all the simulation parameters.  It also outputs the replica swap probabilities.
-
-- ($input17)_n=($input3)_m=($input4)_nS=($input5)_nSweepsPerSwap=($input6)_TemperatureFile_r($input12).dat
-
-    File that lists that trajectory of the temperature replicas.
-
-If the sampling algorithm is used ($input16 = 1), then two files are output:
-
--  ($input17)_n=($input3)_m=($input4)_nS=($input5)_nSweepsPerSwap=($input6)_EnergySamples_r($input12).dat
-
-    File that lists the energy samples for the averaged ANN parameters in the file ($input17)_n=($input3)_m=($input4)_nS=($input5)_nSweepsPerSwap=($input6)_ANNParameterFile_r($input12).dat.
-
--  ($input17)_n=($input3)_m=($input4)_nS=($input5)_nSweepsPerSwap=($input6)_SamplingANNParameters_r($input12).dat
-
-    File that lists the averaged ANN parameters used for sampling
-    
-## MINRES
-Implementation of a conjugate-gradient type method for solving sparse symmetric linear equations.  Returns a least-squares solution.
-
-Cite:
--  C. C. Paige and M. A. Saunders (1975). Solution of sparse indefinite systems of linear equations, SIAM J. Numerical Analysis 12, 617-629.
-- S.-C. Choi (2006). Iterative Methods for Singular Linear Equations and Least-Squares Problems, PhD thesis, Stanford University.
 
 ## MINRES-QLP
 Implementation of a conjugate-gradient type method for solving sparse symmetric/Hermitian linear equations.  The method is based on Lanczos tridiagonalization. Returns minimum-length solution.
