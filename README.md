@@ -47,7 +47,7 @@ The input file must have a specific format.  Each line corresponds to a unique P
 
 corresponds to the Hamiltonian H = - X_0 - Z_0 Z_1
 
-Some example input files can be found in the InstanceFiles folder.
+The input files for the H4 rectangle used in arXiv:2210.11405 can be found in the InstanceFiles folder.  They are H4.80.txt, H4.85.txt, and H4.90.txt, corresponding to the three angles of 80, 85, and 90 degrees studied. 
 
 ## Output files
 In an effort to be as complete as possible, the code outputs a lot of information that is organized in different files.  The filenames will have input16 as their prefix, in addition to some of the input parameters, such as the number of visible and hidden nodes, number of samples, number of sweeps between samples, and the number of ANN updates performed.  The following files will be output when the training algorithm is used ($input16 = 0):
