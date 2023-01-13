@@ -2,71 +2,38 @@
 Quantum-Inspired Tempering for Ground State Approximation using RBM's. Repository for code to reproduce the main results of arXiv:2210.11405 
 
 ## Compilation instructions
-To compile, you will need an MPI enabled C++ compiler with c++14. On CARC, you will need to load the appropriate module before compiling:
+To compile, you will need an MPI enabled C++ compiler with c++14.  For example, 
 
-`$ module load openmpi-4.0.3-gcc-10.1.0-qm5tmqr`
+There are two source codes available.  The first, XXXX, uses a wavefunction ansatze based on a standard RBM, as in Eqt.(1) of arXiv:2210.11405. The second, XXXX, uses a wavefunction ansatze based on a symmetric RBM, as in Eqt.(17) of arXiv:2210.11405.
 
-To create an executable called NNet, run from the command line:
+To create an executable called QPTRBM, run from the command line:
 
-`$ mpicxx -O3 -g -std=c++14 -fopenmp -o NNet main.cpp  -I ./ -I ./tminres-0.2 -I ./other -I ./minresqlp `
+`$ mpicxx -O3 -g -std=c++14 -o QPTRBM main.cpp  -I ./ -I ./tminres-0.2 -I ./other -I ./minresqlp `
 
-or you can use the included Makefile:
+where main.cpp should be replaced with the appropriate source file from above.
 
-`$ make mpi`
 
-## Usage instructions
+## Usage instructions for standard RBM
 
 To exectute the program:
 
-`$ mpiexec -np $input1 NNet $input2 $input3 $input4 $input5 $input6 $input7 $input8 $input9 $input10 $input11 $input12 $input13 $input14 $input15 $input16 $input17`
+`$ mpiexec -np $input1 NNet $input2 $input3 $input4 $input5 $input6 $input7 $input8`
 
-where there are a total of 17 input arguments:
+where there are a total of 8 input arguments:
 
-- $input1: (integer) Number of MPI tasks.  This controls the number of parallel tempering replicas to be used.  At the moment, the distribution of temperatures of these replicas cannot be altered.  Something for a future update.
+- $input1: (integer) Number of MPI tasks.  This controls the number of parallel tempering replicas to be used. The distribution of temperatures of these replicas is a cubic function.
  
-- $input2: (integer) Number of OMP threads.  This controls the number of parallel threads to be used for the MCMC sampling used to estimate the covariance matrix and force vector.  When running on CARC, make sure that the number of cores equals $input1 times $input2.
+- $input2: (integer) Number of visible nodes of the RBM.  This should equal the number of qubits in the problem Hamiltonian.
  
-- $input3: (integer) Number of visible nodes of the RBM.  This should equal the number of qubits.
+- $input3: (integer) Number of hidden nodes of the RBM.
  
-- $input4: (integer) Number of hidden nodes of the RBM.
+- $input4: (integer) Chooses whether to perform full sampling (0) or restrict the sampling to a fixed Hamming weight sector (1).
  
-- $input5: (integer) Number of MCMC samples to take in order to estimate the covariance matrix and force vector.
- 
-- $input6: (integer) Number of MCMC sweeps to perform before a sample measurement is taken.  A single sweep corresponds performing a single Metropolis update on all spins.
+- $input5: (integer) If $input4 = 1, chooses the Hamming weight of the spin configurations to sample.
 
-- $input7: (integer) Number of RBM parameter updates to perform.
+- $input7: (integer) Number of RBM parameter updates using Stochastic Reconfiguration to perform.
 
-- $input8: Two possible situations here.
-
-    if $input16 = 0, then (double) Initial value for the learning rate \gamma. RBM parameters are updated according to -\gamma S^{-1} F.  A good choice seems to be 0.01.
-    
-    if $input16 = 1, then (integer), the line number in the ANNparameter file to start averaging (inclusive)
-
-- $input9: Two possible situations here.
-
-    if $input16 = 0, then (double) Final value for the learning rate \gamma. A good choice seems to be 0.001.
-    
-    if $input16 = 1,  then (integer), the line number in the ANNparameter file to end averaging (inclusive)
-
-- $input10: Two possible situations here.
-
-    if $input16 = 0, then (integer) log_10 of the maximum number of iterations used by the MINRES or MINRES-QLP algorithm. A good value is 3.
-    
-    if $input16 = 1, then (integer) log_10 of the number of energy samples to take.
-
-- $input11: (double) -log_10 of the tolerance used by the MINRES or MINRES-QLP algorithm. A good value is 6.
-
-- $input12: (integer) A label for the training run.  Give different values when wanting to run independent training runs.
-
-- $input13: (integer) Chooses between which method to use to calculate the inverse of the covariance matrix S.  For MINRES, choose value 0; for MINRES-QLP choose value 1.
-
-- $input14: (integer) Chooses what kind of MCMC simulation to use.  For single spin updates, choose 0.  For updates that preserve the Hamming weight of the spin configuration, choose 1.
- 
-- $input15: (integer) If $input14 = 1, chooses the Hamming weigt of the spin configuration.
-
-- $input16: (integer) If $input16 = 0, it is the training algorithm.  If $input16 = 1, it is the sampling algorithm.
-
-- $input17: (*char) The name of the input file without its extension; the extensin is assumed to be .txt. The name of the file should not start with a number.
+- $input8: (*char) The name of the input file without its extension; the extension is assumed to be .txt. The name of the file should not start with a number.
 
 
 ## Input file format
