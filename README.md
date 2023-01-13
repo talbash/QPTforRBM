@@ -4,7 +4,7 @@ Quantum-Inspired Tempering for Ground State Approximation using RBM's. Repositor
 ## Compilation instructions
 To compile, you will need an MPI enabled C++ compiler with c++14.  For example, gcc 11.3 and openmpi 4.1.4 should allow compilation.
 
-There are two source codes available.  The first, XXXX, uses a wavefunction ansatze based on a standard RBM, as in Eqt.(1) of arXiv:2210.11405. The second, XXXX, uses a wavefunction ansatze based on a symmetric RBM, as in Eqt.(17) of arXiv:2210.11405.
+There are two source codes available.  The first, main_StandardRBM.cpp, uses a wavefunction ansatze based on a standard RBM, as in Eqt.(1) of arXiv:2210.11405. The second, main_SymmetricRBM.cpp, uses a wavefunction ansatze based on a symmetric RBM, as in Eqt.(17) of arXiv:2210.11405.
 
 To create an executable called QPTRBM, run from the command line:
 
