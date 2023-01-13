@@ -2,7 +2,7 @@
 Quantum-Inspired Tempering for Ground State Approximation using RBM's. Repository for code to reproduce the main results of arXiv:2210.11405 
 
 ## Compilation instructions
-To compile, you will need an MPI enabled C++ compiler with c++14.  For example, 
+To compile, you will need an MPI enabled C++ compiler with c++14.  For example, gcc 11.3 and openmpi 4.1.4 should allow compilation.
 
 There are two source codes available.  The first, XXXX, uses a wavefunction ansatze based on a standard RBM, as in Eqt.(1) of arXiv:2210.11405. The second, XXXX, uses a wavefunction ansatze based on a symmetric RBM, as in Eqt.(17) of arXiv:2210.11405.
 
@@ -12,12 +12,30 @@ To create an executable called QPTRBM, run from the command line:
 
 where main.cpp should be replaced with the appropriate source file from above.
 
+## Usage instructions for symmetric RBM
+
+To execute the program:
+
+`$ mpiexec -np $input1 QPTRBM $input2 $input3 $input4 $input5`
+
+where there are a total of 5 input arguments:
+
+- $input1: (integer) Number of MPI tasks.  This controls the number of parallel tempering replicas to be used. The distribution of temperatures of these replicas is a cubic function.
+ 
+- $input2: (integer) Number of visible nodes of the RBM.  This should equal the number of qubits in the problem Hamiltonian.
+ 
+- $input3: (integer) Number of hidden nodes of the RBM.
+
+- $input4: (integer) Number of RBM parameter updates using Stochastic Reconfiguration to perform.
+
+- $input5: (integer) Assign a value to the simulation.  The output files will be labeled with this value.
+
 
 ## Usage instructions for standard RBM
 
-To exectute the program:
+To execute the program:
 
-`$ mpiexec -np $input1 NNet $input2 $input3 $input4 $input5 $input6 $input7 $input8`
+`$ mpiexec -np $input1 QPTRBM $input2 $input3 $input4 $input5 $input6 $input7 $input8`
 
 where there are a total of 8 input arguments:
 
@@ -31,12 +49,14 @@ where there are a total of 8 input arguments:
  
 - $input5: (integer) If $input4 = 1, chooses the Hamming weight of the spin configurations to sample.
 
-- $input7: (integer) Number of RBM parameter updates using Stochastic Reconfiguration to perform.
+- $input6: (integer) Number of RBM parameter updates using Stochastic Reconfiguration to perform.
+
+- $input7: (integer) Assign a value to the simulation.  The output files will be labeled with this value.
 
 - $input8: (*char) The name of the input file without its extension; the extension is assumed to be .txt. The name of the file should not start with a number.
 
 
-## Input file format
+## Input file format for standard RBM
 The input file must have a specific format.  Each line corresponds to a unique Pauli operator term that appears in the Hamiltonian.  The first argument in the line is the locality of the operator, which gives how many non-identity terms will appear in the operator.  After the locality, we have pairs of numbers: the first corresponding to the type of Pauli operator (1 = X, 2 = Y, 3 = Z) and the second corresponding to the qubit index that the Pauli operators acts.  The number of pairs should equal the locality. If the locality is 0, it is assumed that this is an identity term corresponding to an overall energy shift term.  The last two arguments in the line are the real part and imaginary part of the coefficient of the operator. For example, an input file of the form:
 
 ```
