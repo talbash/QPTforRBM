@@ -8,7 +8,7 @@ There are two source codes available.  The first, main_StandardRBM.cpp, uses a w
 
 To create an executable called QPTRBM, run from the command line:
 
-`$ mpicxx -O3 -g -std=c++14 -o QPTRBM main.cpp  -I ./ -I ./tminres-0.2 -I ./other -I ./minresqlp `
+`$ mpicxx -O3 -g -std=c++14 -o QPTRBM main.cpp  -I ./ -I ./SourceFiles `
 
 where main.cpp should be replaced with the appropriate source file from above.
 
