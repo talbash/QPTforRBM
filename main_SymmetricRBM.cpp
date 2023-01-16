@@ -9,6 +9,7 @@ using namespace std;
 #include <iomanip>
 #include <complex>
 #include <cmath>
+#include <cstring>
 #include <mpi.h>
 
 #include "SR_SymmetricRBM.cpp"

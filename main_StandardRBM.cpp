@@ -11,7 +11,7 @@ using namespace std;
 #include <complex>
 #include <cmath>
 #include <mpi.h>
-
+#include <cstring>
 
 #include "SR_StandardRBM.cpp"
 
